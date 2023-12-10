@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT Button with Dropdown</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eclipse-paho-mqtt/1.1.0/mqttws31.min.js"></script>
+</head>
+<body>
+
+<!-- Dropdown menu to select MQTT message -->
+<label for="messages">Select MQTT Message:</label>
+<select id="messages">
+    <option value=100>100</option>
+    <option value=200>200</option>
+    <option value=300>300</option>
+    <option value=400>400</option>
+    <option value=500>500</option>
+
+    
+</select>
+
+<button onclick="sendMessage()">Send MQTT Message</button>
+
+<script>
+    // MQTT broker connection details
+    var broker = "mqtt://your-mqtt-broker-url";  // Replace with your MQTT broker URL
+    var port = 1883;  // Replace with your MQTT broker port
+    var topic = "your/mqtt/topic";  // Replace with the desired MQTT topic
+
+    // Create a unique client ID
+    var clientId = "mqtt_button_" + Math.random().toString(16).substr(2, 8);
+
+    // Create an MQTT client
+    var client = new Paho.MQTT.Client(broker, port, clientId);
+
+    // Set up the connection options
+    var options = {
+        onSuccess: onConnect,
+        onFailure: onFailure,
+    };
+
+    // Set up the onConnect callback
+    function onConnect() {
+        console.log("Connected to MQTT broker");
+    }
+
+    // Set up the onFailure callback
+    function onFailure(err) {
+        console.error("Failed to connect to MQTT broker: " + err.errorMessage);
+    }
+
+    // Connect to the MQTT broker
+    client.connect(options);
+
+    // Function to send an MQTT message selected from the dropdown
+    function sendMessage() {
+        var dropdown = document.getElementById("messages");
+        var selectedMessage = dropdown.options[dropdown.selectedIndex].value;
+
+        var mqttMessage = new Paho.MQTT.Message(selectedMessage);
+        mqttMessage.destinationName = topic;
+        client.send(mqttMessage);
+
+        console.log("MQTT message sent: " + selectedMessage);
+    }
+</script>
+
+</body>
+</html>
