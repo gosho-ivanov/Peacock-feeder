@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap.bundle.min.js"></script>
-    <script src="paho-mqtt-min.js"></script>
-    <script src="main.js" defer></script>
     <title>Peacock Feeder</title>
 </head>
 <body class="bg-secondary-subtle">
@@ -21,39 +19,31 @@
     <main class="position-absolute top-50 start-50 translate-middle text-center bg-light p-5 rounded">
         <h1>Peacock Feeder</h1>
         <div id="message" class="border border-success-subtle m-2 p-2 rounded text-success">
-            <p id="success-msg">Feeding in progress...</p>
+            <p id="select-success-msg">Preset X was selected!</p>
+            <p id="delete-success-msg">Preset X was deleted!</p>
+            <p id="create-success-msg">A new preset X was created!</p>
+            <p id="save-success-msg">Preset X was saved!</p>
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="serving">Food:</span>
-            <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Input (grams)" 
-            aria-label="Input"
-            aria-describedby="serving"
-            id="food">
-        </div>
+            <span class="input-group-text">Food</span>
+            <input type="text" class="form-control" placeholder="Days" aria-label="Days">
+            <input type="text" class="form-control" placeholder="Hours" aria-label="Hours">
+            <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+        </div>    
         <div class="input-group mb-3">
-            <span class="input-group-text" id="serving">Water:</span>
-            <input 
-            type="text" 
-            class="form-control" 
-            placeholder="Input (mililitres)" 
-            aria-label="Input"
-            aria-describedby="serving"
-            id="water">
+            <span class="input-group-text">Water</span>
+            <input type="text" class="form-control" placeholder="Days" aria-label="Days">
+            <input type="text" class="form-control" placeholder="Hours" aria-label="Hours">
+            <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
         </div>
-        <p>Random Text</p>
-        <button 
-        type="button" 
-        class="btn btn-primary"
-        innerHTML="Feed"
-        onclick="feed()">
-            Feed
-        </button>
+        <p>Presets</p>
+        <div class="inline-block">
+            <button class="btn btn-primary">Create</button>
+            <button class="btn btn-primary">Select</button>
+            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-primary">Delete</button>
+        </div>
     </main>
-    
-    
     <nav class="offcanvas offcanvas-start"
     style="width: 20%" 
     data-bs-scroll="true" data-bs-backdrop="false" 
