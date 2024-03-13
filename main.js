@@ -1,35 +1,47 @@
-const topic = "peacock_feeder";
-let client = new Paho.Client("broker.hivemq.com", 8000, topic);
+var client = new Paho.MQTT.Client("broker.hivemq.com", 8000, "client_" + new Date().getTime());
 client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
-client.connect({onSuccess:onConnect});
 
-function onConnect() {
-  console.log("onConnect");
-}
-
+client.connect({
+  onSuccess: function () {
+      console.log("Connected to MQTT broker");
+      client.subscribe("peacock_feed");
+  },
+  onFailure: function (responseObject) {
+      console.log("Failed to connect: " + responseObject.errorMessage);
+  }
+  });
 function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
+    console.log("onConnectionLost:" + responseObject.errorMessage);
   }
 }
 
 function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
-  /* if (message is 'successfully fed')*/
-  msg.classList.remove("d-none")
+  console.log("onMessageArrived:" + message.payloadString);
+
+  if (message.payloadString === "successfully_fed") {
+    console.log("Received success message");
+
+    document.getElementById("success_msg").innerText = "Successfully fed";
+    setTimeout(function () {
+      console.log("Hiding success message");
+      document.getElementById("success_msg").innerText = "";
+    }, 6000);
+  }
 }
 
 function feed() {
-    const foodAmount = document.getElementById("food").value;
-    const waterAmount = document.getElementById("water").value;
-    let message = new Paho.Message("food="+foodAmount+";water="+waterAmount);
-    message.destinationName = topic; // "peacock_feeder"
-    client.send(message); // Format: food=X;water=Y
-    /* Server has to send a MQTT message 
-    that will trigger the "Feeding in progress" message. */
+  document.getElementById("success_msg").innerText = "Feeding in progress...";
+  const foodAmount = document.getElementById("food").value;
+  const waterAmount = document.getElementById("water").value;
+  const data = {
+    food: foodAmount,
+    water: waterAmount
+  };
+  var message = new Paho.MQTT.Message(JSON.stringify(data));
+  message.destinationName = 'peacock_feed'; 
+  client.send(message); 
 }
 
 const msg = document.getElementById("message");
-
-msg.classList.add("d-none");
