@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap.bundle.min.js"></script>
-    <script src="paho-mqtt-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
     <script src="main.js" defer></script>
     <title>Peacock Feeder</title>
 </head>
@@ -21,7 +21,7 @@
     <main class="position-absolute top-50 start-50 translate-middle text-center bg-light p-5 rounded">
         <h1>Peacock Feeder</h1>
         <div id="message" class="border border-success-subtle m-2 p-2 rounded text-success">
-            <p id="success-msg">Feeding in progress...</p>
+            <p id="success_msg"></p>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text" id="serving">Food:</span>
@@ -43,7 +43,7 @@
             aria-describedby="serving"
             id="water">
         </div>
-        <p>Random Text</p>
+        <p></p>
         <button 
         type="button" 
         class="btn btn-primary"
