@@ -1,4 +1,4 @@
-from motor_tests import motor_functionality as motor
+from . import motor_functionality as motor
 import RPi.GPIO as GPIO
 import time
 
