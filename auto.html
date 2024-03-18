@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="automation.css">
     <script src="bootstrap.bundle.min.js"></script>
+    <script src="auto.js"></script>
     <title>Peacock Feeder</title>
 </head>
 <body class="bg-secondary-subtle">
@@ -19,29 +21,36 @@
     <main class="position-absolute top-50 start-50 translate-middle text-center bg-light p-5 rounded">
         <h1>Peacock Feeder</h1>
         <div id="message" class="border border-success-subtle m-2 p-2 rounded text-success">
-            <p id="select-success-msg">Preset X was selected!</p>
-            <p id="delete-success-msg">Preset X was deleted!</p>
-            <p id="create-success-msg">A new preset X was created!</p>
-            <p id="save-success-msg">Preset X was saved!</p>
+            <p id="selectedScheduleMessage"></p>
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Food</span>
-            <input type="text" class="form-control" placeholder="Days" aria-label="Days">
-            <input type="text" class="form-control" placeholder="Hours" aria-label="Hours">
-            <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+            <input type="text" class="form-control" placeholder="Days" aria-label="Days" id="foodDays">
+            <input type="text" class="form-control" placeholder="Hours" aria-label="Hours" id="foodHours">
+            <input type="text" class="form-control" placeholder="Amount" aria-label="Amount" id = "foodPortions">
         </div>    
         <div class="input-group mb-3">
             <span class="input-group-text">Water</span>
-            <input type="text" class="form-control" placeholder="Days" aria-label="Days">
-            <input type="text" class="form-control" placeholder="Hours" aria-label="Hours">
-            <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
+            <input type="text" class="form-control" placeholder="Days" aria-label="waterDays">
+            <input type="text" class="form-control" placeholder="Hours" aria-label="waterHours">
+            <input type="text" class="form-control" placeholder="Amount" aria-label="waterAmount">
         </div>
         <p>Presets</p>
         <div class="inline-block">
-            <button class="btn btn-primary">Create</button>
-            <button class="btn btn-primary">Select</button>
-            <button class="btn btn-primary">Edit</button>
-            <button class="btn btn-primary">Delete</button>
+            <button id="addSchedule" class="btn btn-primary">Create</button>
+            <div class="dropdown">
+                <button id="scheduleSelcet" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                  Select
+                </button>
+                <div class="dropdown-menu">
+                    <!-- <a class="dropdown-item" id="None" href="#">
+                        None
+                    </a> -->
+                </div>
+              </div>
+            <button id="editSchedule" class="btn btn-primary">Edit</button>
+            <button id="removeSchedule" class="btn btn-primary">Delete</button>
+            <button id="loadSchedule" class="btn btn-primary">Load</button>
         </div>
     </main>
     <nav class="offcanvas offcanvas-start"
@@ -54,7 +63,7 @@
             <button type="button" 
             class="btn-close" 
             data-bs-dismiss="offcanvas" 
-            aria-label="Close"/>
+            aria-label="Close">
         </div>
         <div class="offcanvas-body">
             <p>
