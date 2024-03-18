@@ -1,4 +1,4 @@
-from . import motor_functionality as motor
+import motor_functionality as motor
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 import json
