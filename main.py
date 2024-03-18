@@ -31,7 +31,7 @@ def on_message(client, userdata, message):
                 if 'food' in data and 'water' in data:
                     food = data['food']
                     water = data['water']
-                    steps = motor.step_calculations()
+                    steps = motor.step_calculations(int(food))
 
                     motor.motor_step(pins["MS1"], pins["MS2"], pins["STEP"], steps)
                     
