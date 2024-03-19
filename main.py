@@ -2,7 +2,6 @@ import motor_functionality as motor
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
 import json
-import threading
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 success_msg = "successfully_fed"
@@ -31,7 +30,7 @@ def on_message(client, userdata, message):
                 if 'food' in data and 'water' in data:
                     food = data['food']
                     water = data['water']
-                    steps = motor.step_calculations(int(food))
+                    steps = motor.step_calculation(int(food))
 
                     motor.motor_step(pins["MS1"], pins["MS2"], pins["STEP"], steps)
                     
@@ -42,7 +41,7 @@ def on_message(client, userdata, message):
 
 def main():
     GPIO.setmode(GPIO.BCM)
-
+    client.subscribe("peacock_fedd")
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect("broker.hivemq.com", 1883, 60)
