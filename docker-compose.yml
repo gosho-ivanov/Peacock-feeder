@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  feeder:
+    build: ./app
+    container_name: peacock-feeder
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    volumes:
+      - /sys/class/gpio:/sys/class/gpio
+    environment:
+      - MQTT_BROKER=broker.hivemq.com
